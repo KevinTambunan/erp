@@ -12,16 +12,19 @@
     <title>SB Admin 2 - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link href={{asset("assets/css/vendor/all.min.css")}} rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href={{ asset('assets/css/vendor/all.min.css') }} rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href={{asset("assets/css/vendor/sb-admin-2.min.css")}} rel="stylesheet">
+    <link href={{ asset('assets/css/vendor/sb-admin-2.min.css') }} rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body id="page-top">
@@ -35,7 +38,8 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <img src="{{asset('assets/image/logo-removebg-preview.png')}}" alt="" srcset="" style="max-width: 50px">
+                    <img src="{{ asset('assets/image/logo-removebg-preview.png') }}" alt="" srcset=""
+                        style="max-width: 50px">
                 </div>
                 <div class="sidebar-brand-text text-left">ERP <br> Recomendation</div>
             </a>
@@ -173,8 +177,8 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small"
+                                placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -211,7 +215,7 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
@@ -259,10 +263,10 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
@@ -325,42 +329,44 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
-                        </li>
+                        </li> --}}
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
+                        {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                   {{
-                                    Auth::user()->name;
-                                   }}
-                                </span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset('assets/image/'.Auth::user()->name)}}">
+
+                                @if (Auth::user()->owner == null)
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                        {{ Auth::user()->name }}
+                                    </span>
+                                @else
+                                    <img class="img-profile rounded-circle"
+                                        src="{{ asset('assets/image/' . Auth::user()->owner->foto) }}">
+                                @endif
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/owner">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                {{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
-                                </a>
+                                </a> --}}
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button class="dropdown-item" href="{{ route('logout') }}">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </button>
+                                </form>
                             </div>
                         </li>
 
@@ -370,7 +376,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                    @yield('content')
+                @yield('content')
                 <!-- /.container-fluid -->
 
             </div>
@@ -411,20 +417,20 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src={{ asset('assets/js/vendor/jquery.min.js') }}></script>
-    <script src={{asset('assets/js/vendor/bootstrap.bundle.min.js')}}></script>
+    <script src={{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}></script>
 
     <!-- Core plugin JavaScript-->
-    <script src={{asset('assets/js/vendor/jquery.easing.js')}}></script>
+    <script src={{ asset('assets/js/vendor/jquery.easing.js') }}></script>
 
     <!-- Custom scripts for all pages-->
-    <script src={{asset('assets/js/vendor/sb-admin2.min.js')}}></script>
+    <script src={{ asset('assets/js/vendor/sb-admin2.min.js') }}></script>
 
     <!-- Page level plugins -->
-    <script src={{asset('assets/js/vendor/chart.min.js')}}></script>
+    <script src={{ asset('assets/js/vendor/chart.min.js') }}></script>
 
     <!-- Page level custom scripts -->
-    <script src={{asset('assets/js/vendor/chart-area.js')}}></script>
-    <script src={{asset('assets/js/vendor/chart-pie.js')}}></script>
+    <script src={{ asset('assets/js/vendor/chart-area.js') }}></script>
+    <script src={{ asset('assets/js/vendor/chart-pie.js') }}></script>
 
 </body>
 

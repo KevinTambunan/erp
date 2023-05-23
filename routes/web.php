@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/feedback_user', [App\Http\Controllers\PagesController::class, 'feedback_user']);
+Route::get('/faq_user', [App\Http\Controllers\PagesController::class, 'faq_user']);
 
 Auth::routes();
 
