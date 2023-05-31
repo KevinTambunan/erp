@@ -30,7 +30,7 @@
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location.href='/erp/1'">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -50,7 +50,7 @@
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location.href='/erp/2'">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-3 col-md-6 mb-4" onclick="window.location.href='/erp/3'">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -110,35 +110,112 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal Penggunaan</th>
-                                        <th>Opsi Odoo</th>
-                                        <th>Opsi Dolibarr</th>
-                                        <th>Opsi SAP</th>
-                                        <th>Pilihan Akhir</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($erps_result as $erp)
+                        @if (count($erps_result) > 0)
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $erp->created_at }}</td>
-                                            <td>{{ $erp->odoo }}</td>
-                                            <td>{{ $erp->dolibar }}</td>
-                                            <td>{{ $erp->sap }}</td>
-                                            <td>
-                                                <p>{{ $erp->erp->nama }}</p>
-                                                <img src="{{ asset('assets/image/' . $erp->erp->foto) }}" alt=""
-                                                    srcset="" style="max-height: 100px">
-                                            </td>
+                                            <th>Tanggal Penggunaan</th>
+                                            <th>Opsi Odoo</th>
+                                            <th>Opsi Dolibarr</th>
+                                            <th>Opsi SAP</th>
+                                            <th>Pilihan Akhir</th>
                                         </tr>
-                                    @endforeach
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($erps_result as $erp)
+                                            <tr>
+                                                <td>{{ $erp->created_at }}</td>
+                                                <td>{{ $erp->odoo }}</td>
+                                                <td>{{ $erp->dolibar }}</td>
+                                                <td>{{ $erp->sap }}</td>
+                                                <td>
+                                                    <p>{{ $erp->erp->nama }}</p>
+                                                    <img src="{{ asset('assets/image/' . $erp->erp->foto) }}"
+                                                        alt="" srcset="" style="max-height: 100px">
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
-                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <h6>You have never used the recommended ERP, follow the steps below to do so.</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @if ($owner == null || $owner->phone_number == 0)
+                                        <div class="card bg-warning">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">Owner Profile</h5>
+                                                <p class="card-text text-light">Profile data is incomplete, complete it
+                                                    first by
+                                                    clicking the button below</p>
+                                                <a href="/owner/create" class="btn btn-outline-primary">Complete Data</a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="card bg-success">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">Owner Profile</h5>
+                                                <p class="card-text text-light">Profile data is complet, to update or delete
+                                                    profile data
+                                                    clic the button below</p>
+                                                <a href="/profile" class="btn btn-outline-primary">See Profile</a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                </div>
+                                <div class="col-md-4">
+                                    @if ($company == null)
+                                        <div class="card bg-warning">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">Company Profile</h5>
+                                                <p class="card-text text-light">Company data is incomplete, complete it
+                                                    first by
+                                                    clicking the button below</p>
+                                                <a href="/company/create" class="btn btn-outline-primary">Complete Data</a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="card bg-success">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">Company Profile</h5>
+                                                <p class="card-text text-light">Company data is complet, to update or
+                                                    delete profile data
+                                                    clic the button below</p>
+                                                <a href="/company" class="btn btn-outline-primary">See Profile</a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                </div>
+                                <div class="col-md-4">
+                                    @if ($company != null && $owner != null && $owner->phone_number != 0)
+                                        <div class="card bg-success">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">ERP Recomendation</h5>
+                                                <p class="card-text text-light">You can use ERP Recomendation by clicking
+                                                    button below</p>
+                                                <a href="/erp-recomendation" class="btn btn-outline-primary">ERP
+                                                    Recomendation</a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="card bg-secondary">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title text-light">ERP Recomendation</h5>
+                                                <p class="card-text text-light">You cannot use erp-recommendation before you complete the data profile</p>
+                                                <a href="" class="btn btn-outline-primary">ERP
+                                                    Recomendation</a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -180,9 +257,9 @@
                                     <a href="/company" class="btn btn-sm btn-primary shadow-sm"><i
                                             class="fa-solid fa-add mr-2"></i>Profile</a>
                                 @else
-                                    <p>Nama : {{Auth::user()->company->nama}}</p>
-                                    <p>Email : {{Auth::user()->company->email}}</p>
-                                    <p>Phone : {{Auth::user()->company->no_hp}}</p>
+                                    <p>Nama : {{ Auth::user()->company->nama }}</p>
+                                    <p>Email : {{ Auth::user()->company->email }}</p>
+                                    <p>Phone : {{ Auth::user()->company->no_hp }}</p>
                                 @endif
                             </div>
                         </div>
@@ -211,9 +288,9 @@
                                     <a href="/owner" class="btn btn-sm btn-primary shadow-sm"><i
                                             class="fa-solid fa-add mr-2"></i>Profile</a>
                                 @else
-                                    <p>Nama : {{Auth::user()->owner->name}}</p>
-                                    <p>Email : {{Auth::user()->owner->email}}</p>
-                                    <p>Phone : {{Auth::user()->owner->no_hp}}</p>
+                                    <p>Nama : {{ Auth::user()->owner->name }}</p>
+                                    <p>Email : {{ Auth::user()->owner->email }}</p>
+                                    <p>Phone : {{ Auth::user()->owner->no_hp }}</p>
                                 @endif
                             </div>
                         </div>

@@ -20,12 +20,10 @@ return new class extends Migration
             $table->string('gender');
             $table->text('address');
             $table->string('email');
-            $table->integer('no_hp');
-            $table->integer('age');
-            $table->string('education');
-            $table->string('employment_history');
+            $table->integer('phone_number');
+            $table->date('date_of_birth');
             $table->string('position');
-            $table->string('foto');
+            $table->string('image');
             $table->foreign('user_id')->on('users')->references('id');
             $table->timestamps();
         });

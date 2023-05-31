@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string("nama");
+            $table->string("name");
             $table->string("email");
-            $table->bigInteger("no_hp");
-            $table->text("alamat");
+            $table->bigInteger("phone_number");
+            $table->text("address");
 
             $table->foreign('user_id')->on('users')->references('id');
             $table->timestamps();

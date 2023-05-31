@@ -3,101 +3,9 @@
 @section('content')
     <div class="container-fluid">
 
-        <!-- Page Heading -->
+        <!-- Company -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Company Profile</h1>
-            <div class="d-none d-sm-inline-block ">
-                @if (Auth::user()->company == null)
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="button"
-                        data-toggle="modal" data-target="#ubahmodalaasdas"><i class="fa-solid fa-pen mr-2"></i>Ubah Data</a>
-                @else
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="button"
-                        data-toggle="modal" data-target="#ubahmodal"><i class="fa-solid fa-pen mr-2"></i>Ubah Data</a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="ubahmodal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/company/update/{{ $company->id }}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                        <div class="form-group">
-                                            <label for="nama">Nama</label>
-                                            <input type="text" class="form-control" id="nama" name="nama"
-                                                value="{{ $company->nama }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Alamat Email</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" name="email" value="{{ $company->email }}">
-                                            <small id="emailHelp" class="form-text text-muted">Kami tidak akan
-                                                membagian email anda kepada siapapun</small>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="no_hp">No Handphone</label>
-                                            <input type="text" class="form-control" id="no_hp" name="no_hp"
-                                                value="{{ $company->no_hp }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Alamat</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat">{{ $company->alamat }}</textarea>
-                                        </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-
-                @if (Auth::user()->company == null)
-                    <a href="#" class="btn btn-sm btn-danger shadow-sm"><i
-                            class="fa-solid fa-trash mr-2"></i>Kosongkan
-                        Data</a>
-                @else
-                    <a href="#" class="btn btn-sm btn-danger shadow-sm" type="button" data-toggle="modal"
-                        data-target="#deleteModal"><i class="fa-solid fa-trash mr-2"></i>Kosongkan
-                        Data</a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Kosongkan Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/company/destroy/{{ $company->id }}" method="post">
-                                        @csrf
-                                        <h5>Anda yakin ingin mengosongkan data?</h5>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Ya, kosongkan</button>
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-            </div>
 
         </div>
         <div class="row">
@@ -112,14 +20,6 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                             </a>
-                            {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div> --}}
                         </div>
                     </div>
                     <!-- Card Body -->
@@ -135,82 +35,33 @@
                             @endforeach
                         @endif
                         @if (Auth::user()->company == null)
-                            <p>Anda belum mengisi data company, click button dibawah untuk menambahkan</p>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                type="button" data-toggle="modal" data-target="#exampleModal"><i
-                                    class="fa-solid fa-add mr-2"></i>Isi Data</a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Isi Data</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/company/store" method="post">
-                                                @csrf
-                                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                                <div class="form-group">
-                                                    <label for="nama">Nama</label>
-                                                    <input type="text" class="form-control" id="nama"
-                                                        name="nama">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Alamat Email</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                                        aria-describedby="emailHelp" name="email">
-                                                    <small id="emailHelp" class="form-text text-muted">Kami tidak akan
-                                                        membagian email anda kepada siapapun</small>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="no_hp">No Handphone</label>
-                                                    <input type="text" class="form-control" id="no_hp"
-                                                        name="no_hp">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Alamat</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="alamat"></textarea>
-                                                </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            <p>You have not filled in company data, click the button below to add</p>
+                            <a href="/company/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    class="fa-solid fa-add mr-2"></i>Create Data</a>
                         @else
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group mt-2">
-                                        <label for="exampleInputEmail1">Nama</label>
+                                        <label for="exampleInputEmail1">Name</label>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="exampleInputPassword1">Email</label>
                                     </div>
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputEmail1">No Telephone</label>
+                                    <div class="form-group mt-4">
+                                        <label for="exampleInputEmail1">Phone Number</label>
                                     </div>
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputPassword1">Alamat</label>
+                                    <div class="form-group mt-4">
+                                        <label for="exampleInputPassword1">Address</label>
                                     </div>
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputEmail1">Tanggal Diperbaharui</label>
+                                    <div class="form-group mt-4">
+                                        <label for="exampleInputEmail1">Last Update <span class="text-success">{{$company->updated_at}}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <form>
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" disabled value="{{ $company->nama }}">
+                                                aria-describedby="emailHelp" disabled value="{{ $company->name }}">
                                         </div>
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="exampleInputEmail1"
@@ -218,15 +69,11 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" disabled value="{{ $company->no_hp }}">
+                                                aria-describedby="emailHelp" disabled value="{{ $company->phone_number }}">
                                         </div>
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" disabled value="{{ $company->alamat }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp" disabled value="{{ $company->updated_at }}">
+                                                aria-describedby="emailHelp" disabled value="{{ $company->address }}">
                                         </div>
                                     </form>
                                 </div>

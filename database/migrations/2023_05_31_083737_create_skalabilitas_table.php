@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('erps', function (Blueprint $table) {
+        Schema::create('skalabilitas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->text('deskripsi');
-            $table->string('link');
-            $table->string('foto');
-            $table->string('budget');
-            $table->string('implementation');
-            $table->string('size');
-            $table->string('deployment');
-            $table->string('tipe');
+            $table->unsignedBigInteger('erp_id');
+            $table->string('deskripsi');
+
+            $table->foreign('erp_id')->on('erps')->references('id');
             $table->timestamps();
         });
     }
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('erps');
+        Schema::dropIfExists('skalabilitas');
     }
 };

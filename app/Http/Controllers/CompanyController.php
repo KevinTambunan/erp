@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Owner;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,10 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        $owner = Owner::where("user_id", Auth::user()->id)->get()->last();
+        $company = Company::where("user_id", Auth::user()->id)->get()->last();
+
+        return view('pages.company-create', compact(['owner', 'company']));
     }
 
     /**
@@ -42,23 +46,19 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $feedback = null;
-        try {
-            $validate = $request->validate([
-                'user_id' => 'required',
-                'nama' => 'required',
-                'email' => 'required|email',
-                'no_hp' => 'required',
-                'alamat' => 'required'
-            ]);
-            // Lakukan tindakan jika validasi berhasil
-            Company::create($validate);
-            $feedback[0] = "Insert data Berhasil";
-        } catch (ValidationException $e) {
-            // Tangani error validasi di sini
-            $feedback = $e->validator->errors()->all();
-            // Lakukan tindakan sesuai kebutuhan, misalnya tampilkan pesan error kepada pengguna
-        }
-        return redirect('/company')->with('feedback', $feedback);
+        $error = null;
+        $validate = $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required|integer',
+            'address' => 'required|string'
+        ]);
+        // Lakukan tindakan jika validasi berhasil
+        Company::create($validate);
+        $feedback[0] = "Insert data Berhasil";
+
+        return redirect('/company')->with(compact(['feedback', 'error']));
     }
 
     /**
@@ -78,9 +78,10 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        $company =  Company::where('id', $id)->get()->last();
+        return view('pages.company-update', compact(['company']));
     }
 
     /**
@@ -93,23 +94,19 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $feedback = null;
-        try {
-            $validate = $request->validate([
-                'user_id' => 'required',
-                'nama' => 'required',
-                'email' => 'required|email',
-                'no_hp' => 'required',
-                'alamat' => 'required'
-            ]);
-            // Lakukan tindakan jika validasi berhasil
-            Company::where('id', $id)->update($validate);
-            $feedback[0] = "Update data Berhasil";
-        } catch (ValidationException $e) {
-            // Tangani error validasi di sini
-            $feedback = $e->validator->errors()->all();
-            // Lakukan tindakan sesuai kebutuhan, misalnya tampilkan pesan error kepada pengguna
-        }
-        return redirect('/company')->with('feedback', $feedback);
+        $error = null;
+        $validate = $request->validate([
+            'user_id' => 'required',
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone_number' => 'required|integer',
+            'address' => 'required|string'
+        ]);
+        // Lakukan tindakan jika validasi berhasil
+        Company::where('id', $id)->update($validate);
+        $feedback[0] = "Update data Company Profile Success";
+
+        return redirect('/profile')->with(compact(['error', 'feedback']));
     }
 
     /**
@@ -121,20 +118,17 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $feedback = null;
+        $error = null;
         try {
             // Lakukan tindakan jika validasi berhasil
-            Company::where('id', $id)->update([
-                'nama' => "",
-                'email' => "",
-                'no_hp' => 0,
-                'alamat' => ""
-            ]);
-            $feedback[0] = "Kosongkan data Berhasil";
+            Company::where('id', $id)->delete();
+            $feedback[0] = "Delete data success";
         } catch (ValidationException $e) {
             // Tangani error validasi di sini
             $feedback = $e->validator->errors()->all();
+            $error[0] = 'danger';
             // Lakukan tindakan sesuai kebutuhan, misalnya tampilkan pesan error kepada pengguna
         }
-        return redirect('/company')->with('feedback', $feedback);
+        return redirect('/profile')->with((compact(['error', 'feedback'])));
     }
 }
