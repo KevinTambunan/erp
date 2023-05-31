@@ -51,7 +51,7 @@ class CompanyController extends Controller
             'user_id' => 'required',
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone_number' => 'required|integer',
+            'phone_number' => 'required|numeric',
             'address' => 'required|string'
         ]);
         // Lakukan tindakan jika validasi berhasil
@@ -99,7 +99,7 @@ class CompanyController extends Controller
             'user_id' => 'required',
             'name' => 'required|string',
             'email' => 'required|email',
-            'phone_number' => 'required|integer',
+            'phone_number' => 'required|numeric',
             'address' => 'required|string'
         ]);
         // Lakukan tindakan jika validasi berhasil

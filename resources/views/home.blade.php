@@ -161,7 +161,7 @@
                                                 <p class="card-text text-light">Profile data is complet, to update or delete
                                                     profile data
                                                     clic the button below</p>
-                                                <a href="/profile" class="btn btn-outline-primary">See Profile</a>
+                                                <a href="/owner" class="btn btn-outline-primary">See Profile</a>
                                             </div>
                                         </div>
                                     @endif
