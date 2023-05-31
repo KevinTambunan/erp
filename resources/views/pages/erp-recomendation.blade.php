@@ -500,11 +500,7 @@
                                         </div>
                                     </div>
 
-
-
-
-
-                                    <button class="btn btn-outline-danger" type="reset">Reset</button>
+                                    <button class="btn btn-outline-danger" type="reset">Clear</button>
                                     <button class="btn btn-primary" type="submit">Submit</button>
                                 </form>
                             </div>
