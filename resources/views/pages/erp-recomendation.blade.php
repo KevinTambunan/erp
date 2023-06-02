@@ -27,7 +27,7 @@
                     <!-- Card Body -->
 
                     <div class="card-body">
-                        @if (Auth::user()->owner == null)
+                        @if ($owner == null || $owner->phone_number == 0 || $company == null)
                             <div class="row">
                                 <div class="col-md-6">
                                     <p>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
 
-                            <a href="/owner" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            <a href="/profile" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                     class="fa-solid fa-add mr-2"></i>Fill in Profile data</a>
                             <!-- Modal -->
                         @else
@@ -103,6 +103,9 @@
                                         <div class="mt-3">
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalSatu()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanSatu()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                         </div>
                                     </div>
 
@@ -128,6 +131,8 @@
                                                 onclick="BackSoalDua()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalDua()">Next</button>
+                                            <button type="button" class="btn btn-link" onclick="clearJawabanDua()"><span
+                                                    class="text-danger">Clear Answer</span></button>
                                         </div>
                                     </div>
 
@@ -159,6 +164,9 @@
                                                 onclick="BackSoalTiga()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalTiga()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanTiga()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                         </div>
                                     </div>
 
@@ -186,6 +194,9 @@
                                                 onclick="BackSoalEmpat()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalEmpat()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanEmpat()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                         </div>
                                     </div>
 
@@ -217,6 +228,9 @@
                                                 onclick="BackSoalLima()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalLima()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanLima()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                         </div>
                                     </div>
 
@@ -256,6 +270,9 @@
                                                 onclick="BackSoalEnam()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalEnam()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanEnam()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                         </div>
                                     </div>
 
@@ -297,6 +314,9 @@
                                                 onclick="BackSoalTujuh()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalTujuh()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanTujuh()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                             {{-- <button type="button" class="btn btn-outline-primary" onclick="NextSoalTujuh()">Next</button> --}}
                                         </div>
                                     </div>
@@ -328,6 +348,9 @@
                                                 onclick="BackSoalDelapan()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalDelapan()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanDelapan()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                             {{-- <button type="button" class="btn btn-outline-primary" onclick="NextSoalTujuh()">Next</button> --}}
                                         </div>
                                     </div>
@@ -391,6 +414,9 @@
                                                 onclick="BackSoalSembilan()">Back</button>
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="NextSoalSembilan()">Next</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanSembilan()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                             {{-- <button type="button" class="btn btn-outline-primary" onclick="NextSoalTujuh()">Next</button> --}}
                                         </div>
                                     </div>
@@ -496,12 +522,18 @@
                                         <div class="mt-3">
                                             <button type="button" class="btn btn-outline-primary"
                                                 onclick="BackSoalSepuluh()">Back</button>
+                                            <button type="button" class="btn btn-link"
+                                                onclick="clearJawabanSepuluh()"><span class="text-danger">Clear
+                                                    Answer</span></button>
                                             {{-- <button type="button" class="btn btn-outline-primary" onclick="NextSoalTujuh()">Next</button> --}}
+                                        </div>
+                                        <div class="mt-5">
+                                            <button class="btn btn-block btn-primary " type="submit">Submit</button>
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-outline-danger" type="reset">Clear</button>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    {{-- <button class="btn btn-outline-danger" type="reset">Clear</button> --}}
+                                    
                                 </form>
                             </div>
                         @endif
@@ -780,7 +812,7 @@
         var errorSoalSembilan = document.getElementById("errorSoalSembilan");
         var errorSoalSepuluh = document.getElementById("errorSoalSepuluh");
 
-        // soal 1 check error
+
         var radioButtons = document.querySelectorAll('input[name="1"]');
         var selectedOption = null;
         var selectedValue = null;
@@ -791,6 +823,8 @@
                 selectedValue = selectedOption.value;
             });
         }
+
+
 
         // soal 2 check error
         var radioButtons2 = document.querySelectorAll('input[name="2"]');
@@ -898,10 +932,94 @@
             });
         }
 
+        var satu = document.getElementsByName("1");
+
+        function clearJawabanSatu() {
+            for (var i = 0; i < satu.length; i++) {
+                satu[i].checked = false;
+            }
+            selectedValue = null;
+        }
+
+        var dua = document.getElementsByName("2");
+
+        function clearJawabanDua() {
+            for (var i = 0; i < dua.length; i++) {
+                dua[i].checked = false;
+            }
+            selectedValue2 = null;
+        }
+
+        var tiga = document.getElementsByName("3");
+
+        function clearJawabanTiga() {
+            for (var i = 0; i < tiga.length; i++) {
+                tiga[i].checked = false;
+            }
+            selectedValue3 = null;
+        }
+        var empat = document.getElementsByName("4");
+
+        function clearJawabanEmpat() {
+            for (var i = 0; i < empat.length; i++) {
+                empat[i].checked = false;
+            }
+            selectedValue4 = null;
+        }
+        var lima = document.getElementsByName("5");
+
+        function clearJawabanLima() {
+            for (var i = 0; i < lima.length; i++) {
+                lima[i].checked = false;
+            }
+            selectedValue5 = null;
+        }
+        var enam = document.getElementsByName("6");
+
+        function clearJawabanEnam() {
+            for (var i = 0; i < enam.length; i++) {
+                enam[i].checked = false;
+            }
+            selectedValue6 = null;
+        }
+        var tujuh = document.getElementsByName("7");
+
+        function clearJawabanTujuh() {
+            for (var i = 0; i < tujuh.length; i++) {
+                tujuh[i].checked = false;
+            }
+            selectedValue7 = null;
+        }
+        var delapan = document.getElementsByName("8");
+
+        function clearJawabanDelapan() {
+            for (var i = 0; i < delapan.length; i++) {
+                delapan[i].checked = false;
+            }
+            selectedValue8 = null;
+        }
+        var sembilan = document.getElementsByName("9");
+
+        function clearJawabanSembilan() {
+            for (var i = 0; i < sembilan.length; i++) {
+                sembilan[i].checked = false;
+            }
+            selectedValue9 = null;
+        }
+        var sepuluh = document.getElementsByName("10");
+
+        function clearJawabanSepuluh() {
+            for (var i = 0; i < sepuluh.length; i++) {
+                sepuluh[i].checked = false;
+            }
+            selectedValue10 = null;
+        }
+
         function NextSoalSatu() {
             // console.log(selectedValue);
+
             if (!selectedValue) {
-                errorSoalSatu.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalSatu.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalPertama.style.display = 'none';
                 soalKedua.style.display = '';
@@ -910,7 +1028,7 @@
 
         function NextSoalDua() {
             if (!selectedValue2) {
-                errorSoalDua.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalDua.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKedua.style.display = 'none';
                 soalKetiga.style.display = '';
@@ -925,7 +1043,7 @@
 
         function NextSoalTiga() {
             if (!selectedValue3) {
-                errorSoalTiga.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalTiga.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKetiga.style.display = 'none';
                 soalKeempat.style.display = '';
@@ -941,7 +1059,7 @@
 
         function NextSoalEmpat() {
             if (!selectedValue4) {
-                errorSoalEmpat.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalEmpat.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKeempat.style.display = 'none';
                 soalKelima.style.display = '';
@@ -959,7 +1077,7 @@
 
         function NextSoalLima() {
             if (!selectedValue5) {
-                errorSoalLima.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalLima.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKelima.style.display = 'none';
                 soalKeenam.style.display = '';
@@ -980,7 +1098,7 @@
 
         function NextSoalEnam() {
             if (!selectedValue6) {
-                errorSoalEnam.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalEnam.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKeenam.style.display = 'none';
                 soalKetujuh.style.display = '';
@@ -1001,7 +1119,7 @@
 
         function NextSoalTujuh() {
             if (!selectedValue7) {
-                errorSoalTujuh.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalTujuh.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKedelapan.style.display = '';
                 soalKetujuh.style.display = 'none';
@@ -1021,7 +1139,7 @@
 
         function NextSoalDelapan() {
             if (!selectedValue8) {
-                errorSoalDelapan.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+                errorSoalDelapan.textContent = 'The answer has not been chosen, choose an answer';
             } else {
                 soalKedelapan.style.display = 'none';
                 soalKesembilan.style.display = '';
@@ -1040,12 +1158,12 @@
 
         function NextSoalSembilan() {
             // if (!selectedValue9) {
-            //     errorSoalSembilan.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+            //     errorSoalSembilan.textContent = 'The answer has not been chosen, choose an answer';
             // } else {
-                soalKesembilan.style.display = 'none';
-                soalKesepuluh.style.display = '';
-                penjelasanSoalKesembilan.style.display = 'none';
-                penjelasanSoalKesepuluh.style.display = '';
+            soalKesembilan.style.display = 'none';
+            soalKesepuluh.style.display = '';
+            penjelasanSoalKesembilan.style.display = 'none';
+            penjelasanSoalKesepuluh.style.display = '';
             // }
         }
 
@@ -1058,7 +1176,7 @@
         }
         // function NextSoalSepuluh() {
         //     if (!selectedValue10) {
-        //         errorSoalSepuluh.textContent = 'Jawaban belum dipilih, pilih salah satu Jawaban';
+        //         errorSoalSepuluh.textContent = 'The answer has not been chosen, choose an answer';
         //     } else {
         //         soal.style.display = '';
         //         // penjelasanSoalKetujuh.style.display = '';

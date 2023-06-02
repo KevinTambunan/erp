@@ -23,9 +23,14 @@ Route::get('/faq_user', [App\Http\Controllers\PagesController::class, 'faq_user'
 
 Auth::routes();
 
+
+
+Route::get('/not-found', [App\Http\Controllers\PagesController::class, 'not_found']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/searchPage', [App\Http\Controllers\PagesController::class, 'searchPage']);
+
     // profile
     Route::get('/profile', [App\Http\Controllers\PagesController::class, 'profile']);
 

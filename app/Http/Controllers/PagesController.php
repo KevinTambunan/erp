@@ -12,6 +12,52 @@ use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
+    public function not_found(){
+        return view('pages.not-found');
+    }
+    public function searchPage(Request $request){
+        if($request->search == 'home'){
+            return redirect('/home');
+        }
+        else if($request->search == 'profile'){
+            return redirect('/profile');
+        }
+        else if($request->search == 'company'){
+            return redirect('/company');
+        }
+        else if($request->search == 'owner'){
+            return redirect('/owner');
+        }
+        else if($request->search == 'erp'){
+            return redirect('/erp/1');
+        }
+        else if($request->search == 'odoo'){
+            return redirect('/erp/1');
+        }
+        else if($request->search == 'dolibarr'){
+            return redirect('/erp/2');
+        }
+        else if($request->search == 'sap'){
+            return redirect('/erp/3');
+        }
+        else if($request->search == 'history'){
+            return redirect('/erp-history');
+        }
+        else if($request->search == 'report'){
+            return redirect('/erp-usage');
+        }
+        else if($request->search == 'erp recomendation'){
+            return redirect('/erp-recomendation');
+        }
+        else if($request->search == 'faq'){
+            return redirect('/faq');
+        }
+        else if($request->search == 'feedback'){
+            return redirect('/feedback');
+        }else{
+            return redirect('/not-found');
+        }
+    }
     public function profile()
     {
         $feedback = session('feedback');

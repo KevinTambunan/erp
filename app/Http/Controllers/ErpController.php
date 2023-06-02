@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Erp;
 use App\Models\ErpRespon;
 use App\Models\Modul;
+use App\Models\Owner;
 use App\Models\Skalabilitas;
 use App\Models\User;
 use Carbon\Carbon;
@@ -58,7 +60,9 @@ class ErpController extends Controller
      */
     public function erp_recomendation()
     {
-        return view('pages.erp-recomendation');
+        $owner = Owner::where('user_id', Auth::user()->id)->get()->last();
+        $company = Company::where('user_id', Auth::user()->id)->get()->last();
+        return view('pages.erp-recomendation', compact(['owner', 'company']));
     }
 
 
